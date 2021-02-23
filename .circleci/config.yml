@@ -10,8 +10,8 @@ jobs:
             if [ ! -z "$check" ]; then if [ "$check" != "libisl.so.15" ]; then cp -af /usr/lib/x86_64-linux-gnu/$check /usr/lib/x86_64-linux-gnu/libisl.so.15; fi; fi
             check=$(ls /usr/lib/x86_64-linux-gnu | grep libz3.so -m1)
             if [ ! -z "$check" ]; then if [ "$check" != "libz3.so.4.8" ]; then cp -af /usr/lib/x86_64-linux-gnu/$check /usr/lib/x86_64-linux-gnu/libz3.so.4.8; fi; fi
-            branch=STRIX
-            git clone --depth=1 https://github.com/ramadhannangga/CircleCI.git -b STRIX compile
+            branch=STRIX-R
+            git clone --depth=1 https://github.com/ramadhannangga/CircleCI.git -b STRIX-R compile
             cd compile
             source compile.sh
           no_output_timeout : 5h
