@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/X01BD-Q X01BD
+git clone https://github.com/ramadhannangga/EPYC -b BUILD-Q X01BD
 cd X01BD
 git clone --depth=1 https://github.com/NusantaraDevs/clang $clangDir clang
 git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9/ -b android-10.0.0_r47 --depth=1 gcc
