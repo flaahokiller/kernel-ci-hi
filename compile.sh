@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/X01BD X01BD
+git clone https://github.com/ramadhannangga/EPYC -b X01BD-cam X01BD
 cd X01BD
-git clone --depth=1 https://github.com/STRIX-Project/STRIX-clang $clangDir clang
+git clone --depth=1 https://github.com/NusantaraDevs/clang $clangDir clang
 git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9/ -b android-10.0.0_r47 --depth=1 gcc
 git clone https://github.com/ZyCromerZ/arm-linux-androideabi-4.9/ -b android-10.0.0_r47 --depth=1 gcc32
 git clone --depth=1 https://github.com/ramadhannangga/Anykernel3 AnyKernel
@@ -13,7 +13,7 @@ TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
 VARIANT="XR"
-COMPILE=STRIX
+COMPILE=NUSANTARA
 KERNELNAME="EPYC"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
@@ -22,7 +22,7 @@ export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head 
 export ARCH=arm64
 export KERNELNAME=EPYC
 export KBUILD_BUILD_USER="Naples"
-export KBUILD_BUILD_HOST=#NewSynergy
+export KBUILD_BUILD_HOST=CircleCI-server
 export TOOLCHAIN=clang
 export DEVICES=X01BD
 # sticker plox
