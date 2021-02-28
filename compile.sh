@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b lineage-17.1-caf X01BD
+git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b X01BD/main X01BD
 cd X01BD
 git clone --depth=1 https://github.com/NusantaraDevs/clang $clangDir clang
 git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9/ -b android-10.0.0_r47 --depth=1 gcc
@@ -14,7 +14,7 @@ START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
 VARIANT="REBASE"
 COMPILE=NUSANTARA
-KERNELNAME="EPYC"
+KERNELNAME="Ryzen"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
 PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
