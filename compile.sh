@@ -37,7 +37,7 @@ function sendinfo() {
         -d chat_id="$chat_id" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
-        -d text="<b>• Ryzen Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (X01BD/X01BDA)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#Stable"
+        -d text="<b>• Ryzen Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (X01BD/X01BDA)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#BETA"
 }         
 # Push kernel to channel
 function push() {
