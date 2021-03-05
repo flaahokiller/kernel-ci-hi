@@ -12,15 +12,15 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="BETA-3"
+VARIANT="BETA-2"
 COMPILE=NUSANTARA
-KERNELNAME="lineage"
+KERNELNAME="Ryzen"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
 PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
-export KERNELNAME=lineage
+export KERNELNAME=Ryzen
 export KBUILD_BUILD_USER="Naples"
 export KBUILD_BUILD_HOST=CircleCI-server
 export TOOLCHAIN=clang
