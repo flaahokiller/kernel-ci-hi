@@ -12,7 +12,7 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="BETA 3"
+VARIANT="BETA-3"
 COMPILE=NUSANTARA
 KERNELNAME="lineage"
 KERNEL_DIR=$(pwd)
