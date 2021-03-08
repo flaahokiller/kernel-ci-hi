@@ -12,7 +12,7 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="BETA-LAST"
+VARIANT="FINAL-BETA"
 COMPILE=NUSANTARA
 KERNELNAME="WonRebase"
 KERNEL_DIR=$(pwd)
