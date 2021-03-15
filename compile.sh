@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/ASUS_X01BD -b Override-main X01BD
+git clone https://github.com/ramadhannangga/ASUS_X01BD -b Override-WiFi-Tags X01BD
 cd X01BD
 git clone --depth=1 https://github.com/NusantaraDevs/clang $clangDir clang
 git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9/ -b android-10.0.0_r47 --depth=1 gcc
@@ -12,7 +12,7 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="BETA-4"
+VARIANT="BETA-5"
 COMPILE=NUSANTARA
 KERNELNAME="Override"
 KERNEL_DIR=$(pwd)
