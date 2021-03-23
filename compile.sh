@@ -12,7 +12,7 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="BETA-6"
+VARIANT="BETA-7"
 COMPILE=CLANG
 KERNELNAME="LithoWonder"
 KERNEL_DIR=$(pwd)
@@ -83,7 +83,7 @@ function compile() {
 # Zipping
 function zipping() {
     cd AnyKernel || exit 1
-    zip -r9 [$TGL][$VARIANT][$COMPILE]${VERSI}-${KERNELNAME}.zip *
+    zip -r9 [$VARIANT]${VERSI}-${KERNELNAME}.zip *
     cd ..
 }
 sticker
