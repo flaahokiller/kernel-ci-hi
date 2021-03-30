@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b A10 X01BD
+git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b lineage-17.1-main X01BD
 cd X01BD
 git clone --depth=1 https://github.com/STRIX-Project/STRIX-clang $clangDir clang
 git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9/ -b android-10.0.0_r47 --depth=1 gcc
 git clone https://github.com/ZyCromerZ/arm-linux-androideabi-4.9/ -b android-10.0.0_r47 --depth=1 gcc32
-git clone --depth=1 https://github.com/ramadhannangga/Anykernel3-ASUS AnyKernel
+git clone --depth=1 https://github.com/ramadhannangga/Anykernel3 AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="XR"
+VARIANT="BETA-1"
 COMPILE=CLANG
 KERNELNAME="LithoWonder"
 KERNEL_DIR=$(pwd)
