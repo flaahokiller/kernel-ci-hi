@@ -10,6 +10,7 @@ jobs:
            git config --global user.email "ramadhananggayudhanto@gmail.com"
            git config --global color.ui false
            git clone --depth=1 https://github.com/${CIRCLE_PROJECT_USERNAME}/CircleCI -b BUILD-Q
+           cd CircleCI
            bash compile.sh
 workflows:
   version: 2.1
