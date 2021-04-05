@@ -2,22 +2,21 @@
 echo "Cloning dependencies"
 git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b lineage-17.1 X01BD
 cd X01BD
-git clone --depth=1 https://github.com/NusantaraDevs/clang $clangDir clang
-git clone https://github.com/mvaisakh/gcc-arm64 --depth=1 gcc
-git clone https://github.com/mvaisakh/gcc-arm --depth=1 gcc32
-git clone --depth=1 https://github.com/ramadhannangga/Anykernel3 AnyKernel
+git clone https://github.com/arter97/arm64-gcc --depth=1
+git clone https://github.com/arter97/arm32-gcc --depth=1
+git clone --depth=1 https://github.com/ramadhannangga/Anykernel3-ASUS AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="EAS"
-COMPILE=NUSANTARA
+VARIANT="XR"
+COMPILE=CLANG
 KERNELNAME="LithoWonder"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
-PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
+PATH="$(pwd)/arm64-gcc/bin:$(pwd)/arm32-gcc/bin:${PATH}"
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
 export KERNELNAME=LithoWonder
@@ -37,7 +36,7 @@ function sendinfo() {
         -d chat_id="$chat_id" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
-        -d text="<b>• REIGNITE Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (X01BD/X01BDA)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#Stable"
+        -d text="<b>• LithoWonder Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (ASUS_X01BD)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#STABLE"
 }         
 # Push kernel to channel
 function push() {
@@ -47,8 +46,8 @@ function push() {
         -F chat_id="$chat_id" \
         -F "disable_web_page_preview=true" \
         -F "parse_mode=html" \
-        -F caption="✅Success!!! $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s)."
-}         
+        -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s). | For <b>Zenfone Max Pro M2 (ASUS_X01BD)</b> | <b>$(${CLANG}clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>"
+}
 # Fin Error
 function finerr() {
     curl -s -X POST "https://api.telegram.org/bot$token/sendMessage" \
@@ -62,18 +61,10 @@ function finerr() {
 function compile() {
     make O=out ARCH=arm64 X01BD_defconfig
     make -j$(nproc --all) O=out \
-                    ARCH=arm64 \
-                    SUBARCH=arm64 \
-                    CC=clang \
-                    CROSS_COMPILE=aarch64-elf- \
-                    CROSS_COMPILE_ARM32=arm-eabi- \
-                    AR=llvm-ar \
-                    NM=llvm-nm \
-                    OBJCOPY=llvm-objcopy \
-                    OBJDUMP=llvm-objdump \
-                    STRIP=llvm-strip \
-                    CLANG_TRIPLE=aarch64-linux-gnu-
-
+                          ARCH=arm64 \
+                          CROSS_COMPILE=aarch64-elf- \
+                          CROSS_COMPILE_ARM32=arm-eabi-
+                    
     if ! [ -a "$IMAGE" ]; then
         finerr
         exit 1
@@ -83,7 +74,7 @@ function compile() {
 # Zipping
 function zipping() {
     cd AnyKernel || exit 1
-    zip -r9 [$TGL][$VARIANT][$COMPILE]${VERSI}-${KERNELNAME}.zip *
+    zip -r9 [$VARIANT]${VERSI}-${KERNELNAME}.zip *
     cd ..
 }
 sticker
