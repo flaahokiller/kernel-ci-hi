@@ -2,6 +2,7 @@
 echo "Cloning dependencies"
 git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b lineage-17.1 X01BD
 cd X01BD
+git clone https://github.com/sohamxda7/llvm-stable -b aosp-12.0.2 --depth=1
 git clone https://github.com/arter97/arm64-gcc --depth=1
 git clone https://github.com/arter97/arm32-gcc --depth=1
 git clone --depth=1 https://github.com/ramadhannangga/Anykernel3-ASUS AnyKernel
@@ -16,7 +17,7 @@ COMPILE=CLANG
 KERNELNAME="LithoWonder"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
-PATH="$(pwd)/arm64-gcc/bin:$(pwd)/arm32-gcc/bin:${PATH}"
+PATH="${KERNEL_DIR}/llvm-stable/bin:${KERNEL_DIR}/arm64-gcc/bin:${KERNEL_DIR}/arm32-gcc/bin:${PATH}"
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
 export KERNELNAME=LithoWonder
@@ -61,9 +62,17 @@ function finerr() {
 function compile() {
     make O=out ARCH=arm64 X01BD_defconfig
     make -j$(nproc --all) O=out \
-                          ARCH=arm64 \
-                          CROSS_COMPILE=aarch64-elf- \
-                          CROSS_COMPILE_ARM32=arm-eabi-
+                    ARCH=arm64 \
+                    SUBARCH=arm64 \
+                    CC=clang \
+                    CROSS_COMPILE=aarch64-elf- \
+                    CROSS_COMPILE_ARM32=arm-eabi-
+                    AR=llvm-ar \
+                    NM=llvm-nm \
+                    OBJCOPY=llvm-objcopy \
+                    OBJDUMP=llvm-objdump \
+                    STRIP=llvm-strip \
+                    CLANG_TRIPLE=aarch64-linux-gnu-
                     
     if ! [ -a "$IMAGE" ]; then
         finerr
