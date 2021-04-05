@@ -2,7 +2,7 @@
 echo "Cloning dependencies"
 git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b lineage-17.1 X01BD
 cd X01BD
-git clone --depth=1 https://github.com/NusantaraDevs/clang $clangDir clang
+git clone --depth=1 https://github.com/NusantaraDevs/DragonTC $clangDir clang
 git clone --depth=1 https://github.com/chips-project/aarch64-elf $gcc64Dir gcc
 git clone --depth=1 https://github.com/chips-project/arm-eabi $gcc32Dir gcc32
 git clone --depth=1 https://github.com/ramadhannangga/Anykernel3-ASUS AnyKernel
