@@ -12,7 +12,7 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="BETA-1"
+VARIANT="XR"
 COMPILE=CLANG
 KERNELNAME="LithoWonder"
 KERNEL_DIR=$(pwd)
@@ -37,7 +37,7 @@ function sendinfo() {
         -d chat_id="$chat_id" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
-        -d text="<b>• LithoWonder Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (ASUS_X01BD)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#BETA"
+        -d text="<b>• LithoWonder Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (ASUS_X01BD)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#STABLE"
 }         
 # Push kernel to channel
 function push() {
