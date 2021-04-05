@@ -2,9 +2,9 @@
 echo "Cloning dependencies"
 git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b lineage-17.1 X01BD
 cd X01BD
-git clone https://github.com/sohamxda7/llvm-stable -b aosp-12.0.2 --depth=1
-git clone https://github.com/chips-project/aarch64-elf --depth=1
-git clone https://github.com/chips-project/arm-eabi --depth=1
+git clone --depth=1 https://github.com/sohamxda7/llvm-stable -b aosp-12.0.2 clang
+git clone --depth=1 https://github.com/chips-project/aarch64-elf gcc
+git clone --depth=1 https://github.com/chips-project/arm-eabi gcc32
 git clone --depth=1 https://github.com/ramadhannangga/Anykernel3-ASUS AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
@@ -17,7 +17,7 @@ COMPILE=CLANG
 KERNELNAME="LithoWonder"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
-PATH="${KERNEL_DIR}/llvm-stable/bin:${KERNEL_DIR}/aarch64-elf/bin:${KERNEL_DIR}/arm-eabi/bin:${PATH}"
+PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}"
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
 export KERNELNAME=LithoWonder
