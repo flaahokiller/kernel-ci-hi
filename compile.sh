@@ -5,14 +5,14 @@ cd X01BD
 git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
 git clone https://github.com/ramadhannangga/aarch64-linux-android-4.9 $gcc64Dir gcc
 git clone https://github.com/ramadhannangga/arm-linux-androideabi-4.9 $gcc32Dir gcc32
-git clone https://github.com/ramadhannangga/Anykernel3 AnyKernel
+git clone https://github.com/ramadhannangga/Anykernel3-ASUS -b EAS AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="XR"
+FOR="XR"
 COMPILE=CLANG
 KERNELNAME="LithoWonder-EAS"
 KERNEL_DIR=$(pwd)
@@ -20,9 +20,9 @@ VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//
 PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
-export KERNELNAME=LithoWonder
-export KBUILD_BUILD_USER="Wonder"
-export KBUILD_BUILD_HOST=CircleCI-server
+export KERNELNAME=LithoWonder-EAS
+export KBUILD_BUILD_USER="ramadhannangga"
+export KBUILD_BUILD_HOST=localhost
 export TOOLCHAIN=clang
 export DEVICES=X01BD
 # sticker plox
@@ -83,7 +83,7 @@ function compile() {
 # Zipping
 function zipping() {
     cd AnyKernel || exit 1
-    zip -r9 [$VARIANT]${VERSI}-${KERNELNAME}.zip *
+    zip -r9 [$FOR]${VERSI}-${KERNELNAME}.zip *
     cd ..
 }
 sticker
