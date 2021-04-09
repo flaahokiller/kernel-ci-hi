@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/KERNEL_X01BD -b HMP X01BD
+git clone https://github.com/ramadhannangga/KERNEL_X01BD -b EAS-REBASE X01BD
 cd X01BD
 git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
 git clone https://github.com/ramadhannangga/aarch64-linux-android-4.9 $gcc64Dir gcc
@@ -14,13 +14,13 @@ START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
 FOR="XR"
 COMPILE=CLANG
-KERNELNAME="LithoWonder-HMP"
+KERNELNAME="LithoWonder-EAS"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
 PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
-export KERNELNAME=LithoWonder-HMP
+export KERNELNAME=LithoWonder-EAS
 export KBUILD_BUILD_USER="ramadhannangga"
 export KBUILD_BUILD_HOST=localhost
 export TOOLCHAIN=clang
