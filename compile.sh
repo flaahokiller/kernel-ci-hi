@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/KERNEL_X01BD -b EAS-REBASE X01BD
-cd X01BD
+git clone https://github.com/flaahokiller/flasho_Ysl -b  MaD
+cd flasho_Ysl
 git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
-git clone https://github.com/ramadhannangga/aarch64-linux-android-4.9 $gcc64Dir gcc
-git clone https://github.com/ramadhannangga/arm-linux-androideabi-4.9 $gcc32Dir gcc32
+git clone https://github.com/mvaisakh/gcc-arm64 $gcc64Dir gcc
+git clone https://github.com/mvaisakh/gcc-arm $gcc32Dir gcc32
 git clone https://github.com/ramadhannangga/Anykernel3 AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
@@ -12,19 +12,19 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-FOR="XR"
+FOR="YSL"
 COMPILE=CLANG
-KERNELNAME="LithoWonder-EAS"
+KERNELNAME="flasho"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
 PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
 export KERNELNAME=LithoWonder-EAS
-export KBUILD_BUILD_USER="ramadhannangga"
-export KBUILD_BUILD_HOST=localhost-LA.UM.8.2.r2-04400-sdm660.0
-export TOOLCHAIN=clang
-export DEVICES=X01BD
+export KBUILD_BUILD_USER="mohit"
+export KBUILD_BUILD_HOST=localhost-LA.UM.8.2.r2-04400-sdm625.0
+export TOOLCHAIN=Clang
+export DEVICES=Ysl
 # sticker plox
 function sticker() {
     curl -s -X POST "https://api.telegram.org/bot$token/sendSticker" \
@@ -37,7 +37,7 @@ function sendinfo() {
         -d chat_id="$chat_id" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
-        -d text="<b>• LithoWonder Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (ASUS_X01BD)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#STABLE"
+        -d text="<b>• flasho_ysl Kernel •</b>%0ABuild started on <code>Circle CI</code>%0AFor device <b>Zenfone Max Pro M2</b> (ASUS_X01BD)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>${KBUILD_COMPILER_STRING}</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b>#STABLE"
 }         
 # Push kernel to channel
 function push() {
@@ -60,7 +60,7 @@ function finerr() {
 }
 # Compile plox
 function compile() {
-    make O=out ARCH=arm64 X01BD_defconfig
+    make O=out ARCH=arm64 ysl-perf_defconfig
     make -j$(nproc --all) O=out \
                     ARCH=arm64 \
                     SUBARCH=arm64 \
