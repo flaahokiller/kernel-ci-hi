@@ -2,10 +2,10 @@
 echo "Cloning dependencies"
 git clone https://github.com/flaahokiller/flasho_Ysl -b  MaD
 cd flasho_Ysl
-git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
+git clone --depth=1 https://github.com/flaahokiller/toolchain-4.9 $gccDir gcc
 git clone https://github.com/mvaisakh/gcc-arm64 $gcc64Dir gcc
 git clone https://github.com/mvaisakh/gcc-arm $gcc32Dir gcc32
-git clone https://github.com/ramadhannangga/Anykernel3 AnyKernel
+git clone https://github.com/flaahokiller/Anykernel3 AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 TANGGAL=$(date +"%Y-%m-%d")
@@ -13,17 +13,17 @@ TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
 FOR="YSL"
-COMPILE=CLANG
+COMPILE=gcc
 KERNELNAME="flasho"
 KERNEL_DIR=$(pwd)
-VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
+VERSI=(""4.9.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
 PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
-export KERNELNAME=LithoWonder-EAS
+export KERNELNAME=flasho-kernel
 export KBUILD_BUILD_USER="mohit"
 export KBUILD_BUILD_HOST=localhost-LA.UM.8.2.r2-04400-sdm625.0
-export TOOLCHAIN=Clang
+export TOOLCHAIN=gcc
 export DEVICES=Ysl
 # sticker plox
 function sticker() {
