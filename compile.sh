@@ -13,7 +13,7 @@ TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
 FOR="YSL"
-COMPILE=gcc
+COMPILE=CLANG
 KERNELNAME="flasho"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.9.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
@@ -23,7 +23,7 @@ export ARCH=arm64
 export KERNELNAME=flasho-kernel
 export KBUILD_BUILD_USER="mohit"
 export KBUILD_BUILD_HOST=localhost-LA.UM.8.2.r2-04400-sdm625.0
-export TOOLCHAIN=gcc
+export TOOLCHAIN=clang
 export DEVICES=Ysl
 # sticker plox
 function sticker() {
